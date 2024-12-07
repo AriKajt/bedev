@@ -1,3 +1,281 @@
+https://github.com/AriKajt/bedev/blob/master/Ispit_Bozidar.md#instalacija-wsl-i-ubuntu-na-virtualnim-windowsima
+
+**Instalacija wsl i ubuntu na virtualnim Windowsima**
+upute za instalaciju wsl i Ubuntu iz command prompta (Windows+R, pa upišite cmd, te potom ctrl+shift+enter da bi ga otvorili sa administratorskim ovlastima)
+https://learn.microsoft.com/en-us/windows/wsl/install
+nakon toga trebate spojiti wsl sa VS Code prema sljedećim uputama (koristite "from VS Code" dio)
+https://code.visualstudio.com/docs/remote/wsl
+sljedeće pristupite Ubuntu putem terminala na VS Code te napravite naredbu za update i upgrade
+sudo apt-get update && sudo apt-get upgrade -y
+zatim kopirajte .setup.sh sa gita (imate link dolje) i pohranite u setup.sh na Ubuntu (sa sudo nano), dajte mu 777 ovlasti (sudo chmod 777), te ga pokrenite kako bi instalirali LAMP stack (php, mysql, apache, composer)
+https://github.com/adobrini-algebra/radno_okruzenje/blob/master/setup.sh
+
+sudo nano setup.sh
+sudo chmod 777 setup.sh
+setup.sh
+----
+ **Koraci za uklanjanje i ponovno instaliranje Ubuntu distribucije u WSL (Windows Subsystem for Linux). ukratko:
+**
+Provjerite popis instaliranih distribucija:
+wsl -l
+Uklonite Ubuntu:
+wsl --unregister Ubuntu
+Provjerite je li uklonjen:
+wsl -l
+Ponovno instalirajte Ubuntu prema potrebnim uputama. Na primjer, koristite Microsoft Store ili druge metode.
+
+-----
+
+**Da biste omogućili ili instalirali Git naredbe na Windowsu u Visual Studio Codeu, slijedite ove korake:
+**
+**Instalirajte Git:**
+
+Preuzmite instalacijski program za Git s službene web stranice git-scm.com
+Pokrenite instalacijski program i slijedite upute. Tijekom instalacije, omogućite opciju za dodavanje Git-a u PATH okruženje.
+Provjerite instalaciju Git-a:
+
+Otvorite terminal (Command Prompt, PowerShell ili VS Code terminal).
+Upotrijebite naredbu:
+git --version
+Ako dobijete verziju Git-a, instalacija je uspješna.
+Konfigurirajte Git u Visual Studio Codeu:
+
+Otvorite Visual Studio Code.
+Idite na View > Terminal ili pritisnite `Ctrl + ```.
+Provjerite je li Git dostupan pomoću:
+git --version
+Postavite korisničke podatke (za Git spremišta):
+
+U terminalu unesite:
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+Omogućite Git u Visual Studio Codeu:
+
+Otvorite Source Control s ikone na bočnoj traci ili pritiskom na Ctrl+Shift+G.
+Ako je Git ispravno instaliran, ovdje ćete vidjeti opcije za upravljanje Git spremištima.
+Sada je Git spreman za korištenje u Visual Studio Codeu.
+
+----
+**what's the purpose of the function spl_autoload_register(), does it register a function that is called when a script is ucitana? or when an object is destroyed? or automatically when a class is undefined? or when there is an error?**
+Funkcija spl_autoload_register() registrira funkciju koja se automatski poziva kada je klasa nepoznata (undefined) tijekom izvršavanja skripte. Njen glavni cilj je omogućiti automatsko učitavanje klasa bez ručnog uključivanja datoteka.
+
+**getting an entry in a database table by the primary key, using DB class in laravel uses the find() function, right? and not first, get, or all functions?**
+
+Da, u Laravelu, funkcija find() se koristi za dohvaćanje unosa u bazi prema primarnom ključu. Funkcije first, get i all koriste se u različite svrhe:
+
+first(): Vraća prvi rezultat iz skupa upita.
+get(): Dohvaća sve rezultate upita.
+all(): Dohvaća sve zapise iz modela.
+Dakle, za dohvaćanje unosa prema primarnom ključu koristi se find().
+
+
+**
+purpose of {{ }} syntax in blade?**
+Sintaksa {{ }} u Bladeu koristi se za ispis vrijednosti unutar pogleda, dok se automatski obavlja escapiranje HTML znakova radi zaštite od XSS napada.
+
+Primjer:
+
+{{ $variable }}
+Ovo će ispisati sadržaj varijable $variable kao siguran HTML.
+
+
+**we can't proslijediti podatke to the view in laravel using the request() function, right? but we could use with, an array, or compact()?
+**Točno, podatke ne možete proslijediti u pogled koristeći request() funkciju. Međutim, možete ih proslijediti koristeći:
+
+with():
+
+return view('view-name')->with('key', $value);
+Array:
+
+return view('view-name', ['key' => $value]);
+compact():
+
+return view('view-name', compact('key'));
+
+**to connect to mysql database using mysqli, is this the correct syntax: $conn = mysqli_connect("localhost", "user", "password", "database");? these other 2 options without the $conn variable are incorrect, right? option 2: mysqli_connect("localhost", "password", "user", "database");, option 3: mysqli_connect("user@localhost", "password", "database");. well option 4 is none of the above, but i think it's not that either?
+**Točno, prva opcija:
+
+$conn = mysqli_connect("localhost", "user", "password", "database");
+je ispravna. Druge opcije su pogrešne jer:
+
+Opcija 2: Ima zamijenjen redoslijed parametara (password dolazi iza korisničkog imena).
+Opcija 3: Pokušava koristiti netočan oblik za hostname (user@localhost).
+Opcija 4 ("none of the above") također nije točna jer je prva opcija ispravna.
+
+
+**to access svojstvo objekta u php, koristimo operator "->" before the svojstvo, correct? and not ".", ",", or ";"?
+**Točno, za pristup svojstvu objekta u PHP-u koristimo operator -> prije svojstva.
+Primjer:
+
+$object->property;
+Ostali operatori ., , i ; nisu ispravni za ovu svrhu.
+
+
+**what is laravel migrations used for - upravljanje konfiguracijskim datotekama aplikacije; upravljanje pohranom datoteka; upravljanje promjenama sheme baze podataka; ili upravljanje postavljanjem posluzitelja?
+**Laravel migrations koriste se za upravljanje promjenama sheme baze podataka. Omogućuju verzioniranje i jednostavno praćenje promjena u strukturi baze podataka kroz PHP datoteke.
+
+
+**can all of these naredbe be used to check the php version installed on the system? if not, which one? php -v; php -i; php --version
+**Sve ove naredbe mogu se koristiti za provjeru verzije PHP-a instalirane na sustavu:
+
+php -v: Prikazuje verziju PHP-a.
+php -i: Prikazuje detaljne informacije o konfiguraciji, uključujući verziju PHP-a.
+php --version: Također prikazuje verziju PHP-a.
+Dakle, sve su ispravne.
+
+
+**Koji su obavezni koraci that you would include in CI - continous integration pipeline?
+**Preuzimanje koda iz repozitorija
+Provjera sintakse i formatiranja koda
+Pokretanje testova (jediničnih, integracijskih)
+Izrada artefakata (build)
+Analiza koda (linting, statička analiza)
+Deployment na testno okruženje (po potrebi)
+Obavijesti o statusu
+
+
+**koje su dvije najčeće web forme koje se koriste za slanje podataka iz web forme na server, navedite ih i objasnite razliku
+**GET
+
+Podaci se šalju kao dio URL-a u query stringu.
+Koristi se za dohvaćanje podataka bez utjecaja na stanje servera.
+Vidljivi podaci, ograničeni duljinom URL-a.
+POST
+
+Podaci se šalju u tijelu HTTP zahtjeva.
+Koristi se za slanje velikih ili osjetljivih podataka.
+Podaci nisu vidljivi u URL-u i nemaju ograničenja duljine.
+
+**koja je svrha $fillable svojstva u Laravel modelu?
+**Svrha $fillable svojstva u Laravel modelu je definiranje polja koja su dopuštena za masovno popunjavanje (mass assignment). Time se štite ostala polja modela od neovlaštenog mijenjanja prilikom korištenja metoda poput create() ili update().
+
+Primjer:
+
+protected $fillable = ['name', 'email', 'password'];
+Ovo znači da će samo navedena polja biti popunjena kada se koriste masovni unos podataka.
+
+**može li se u istoj php datoteci definirati više imenskih prostora?
+**Da, u istoj PHP datoteci mogu se definirati više imenskih prostora (namespaces), ali je preporučljivo koristiti samo jedan po datoteci radi čitljivosti i održavanja koda.
+
+Ako definirate više imenskih prostora, koristite blok sintaksu:
+
+namespace App\Controllers {
+    class UserController {
+        public function index() {
+            echo "User Controller";
+        }
+    }
+}
+
+namespace App\Models {
+    class User {
+        public function getName() {
+            return "User Name";
+        }
+    }
+}
+Za svaku grupu kodova definira se poseban blok s pripadajućim namespaceom.
+
+**metoda za pripremu sql upita u pdo? $_COOKIE
+**Metoda za pripremu SQL upita u PDO je prepare(). Koristi se za zaštitu od SQL injekcija jer omogućuje vezivanje parametara prije izvršavanja upita.
+
+Primjer:
+
+$stmt = $pdo->prepare("SELECT * FROM users WHERE id = :id");
+$stmt->bindParam(':id', $id, PDO::PARAM_INT);
+$stmt->execute();
+Napomena: $_COOKIE je globalna varijabla koja služi za pristup kolačićima, ali nije povezana s pripremom SQL upita. Kolačiće je potrebno validirati prije korištenja u upitima kako bi se izbjegla sigurnosna ranjivost.
+
+
+
+**što je objekt u php-u? skup podataka i metoda, ili tip podataka
+**Objekt u PHP-u je instanca klase, koja sadrži:
+
+Skup podataka (svojstva/properties)
+Vrijednosti koje objekt posjeduje.
+Metode
+Funkcije koje objekt može izvršavati.
+Dakle, objekt je više od samog tipa podataka jer kombinira podatke i funkcionalnost u jednu cjelinu.
+
+Primjer:
+
+class Car {
+    public $color;
+    public function drive() {
+        echo "Driving...";
+    }
+}
+
+$car = new Car(); // Objekt klase Car
+$car->color = "red"; // Postavljanje svojstva
+$car->drive(); // Pozivanje metode
+
+**opišite na koji biste način proveli završno testiranje projekta
+**Planiranje testiranja
+
+Izrada popisa funkcionalnosti i očekivanih ishoda.
+Odabir testnih slučajeva i alata za testiranje.
+Funkcionalno testiranje
+
+Provjera svake funkcionalnosti prema zahtjevima.
+Testiranje performansi
+
+Provjera brzine, skalabilnosti i stabilnosti pod opterećenjem.
+Sigurnosno testiranje
+
+Traženje ranjivosti, poput SQL injekcija ili XSS napada.
+Korisničko testiranje (UAT)
+
+Angažiranje stvarnih korisnika za evaluaciju projekta.
+Testiranje kompatibilnosti
+
+Provjera ispravnog rada na različitim uređajima, preglednicima i platformama.
+Ispravljanje pogrešaka
+
+Analiza pronađenih grešaka i njihovo otklanjanje.
+Dokumentacija
+
+Bilježenje rezultata testiranja i finalna potvrda spremnosti za produkciju.
+
+**ograničenje foreign key osigurava referentni integritet između dvije tablice? točno; netočno;
+**Točno.
+
+Ograničenje foreign key osigurava referentni integritet između dvije tablice tako što provjerava da vrijednost u stupcu koji je foreign key odgovara vrijednosti primarnog ključa u povezanoj tablici. Ovo sprječava umetanje, ažuriranje ili brisanje podataka koji bi narušili tu povezanost.
+
+
+**koji zapis kardinalnosti znači jedan i samo jedan? 1:1
+**Točno.
+Zapis kardinalnosti 1:1 znači "jedan i samo jedan".
+
+To označava da svaki zapis u jednoj tablici odgovara točno jednom zapisu u drugoj tablici i obrnuto.
+
+
+**to go back a little bit, isn't an object a "tip podataka"? isnt it a skup svojstava i metoda, not skup podataka i metoda? if we think of "tip podataka" there, svojstvo is not a "podatak" in that context, right?
+**You're absolutely right to point out the nuances. Let me clarify:
+
+Object as a "tip podataka":
+In PHP, objects are indeed a data type. When you instantiate a class, the resulting object is treated as a complex data type that encompasses both data (in the form of properties) and behaviors (in the form of methods).
+
+"Skup svojstava i metoda":
+Saying an object is a "skup svojstava i metoda" is more precise because svojstva (properties) are the defined attributes of the object, and methods are the actions it can perform.
+
+Svojstva themselves don't hold data directly but serve as containers for the data values that an object holds.
+Context of "svojstva" and "podatak":
+If you are differentiating between the definitions, it's better to say that the object is a "skup svojstava i metoda." The svojstva are not podatak in themselves but define where and how the data is stored in the object.
+
+So, an object is both:
+
+A tip podataka in PHP, representing a complex, structured type.
+A skup svojstava i metoda when describing its internal structure and behavior.
+The context determines the phrasing!
+
+
+
+
+
+
+
+
 ## Vlastiti host
 
 - otvorite terminal (bilo u VSCode, bilo zasebno) i sa naredbom "cd /etc/apache2/sites-available" se pozicionirajte u apache direktorij dostupnih hostova
